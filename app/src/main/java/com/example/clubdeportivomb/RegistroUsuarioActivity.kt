@@ -9,6 +9,9 @@ import com.example.clubdeportivomb.databinding.ActivityRegistroUsuarioBinding
 import com.example.clubdeportivomb.db.ClubDeportivoDBHelper
 import com.example.clubdeportivomb.repository.ClubDeportivoRepository
 import java.util.Calendar
+import android.widget.ArrayAdapter
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
+
 
 class RegistroUsuarioActivity : AppCompatActivity() {
 
@@ -20,7 +23,7 @@ class RegistroUsuarioActivity : AppCompatActivity() {
         binding = ActivityRegistroUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // ✅ CORREGIDO: Crear instancia del DBHelper primero
+
         val dbHelper = ClubDeportivoDBHelper(this)
         repository = ClubDeportivoRepository(dbHelper)
 
@@ -35,13 +38,9 @@ class RegistroUsuarioActivity : AppCompatActivity() {
             val telefono = binding.etTelefono.text.toString().trim()
             val direccion = binding.etDireccion.text.toString().trim()
             val email = binding.etEmail.text.toString().trim()
-            // ✅ CORREGIDO: Usar etFechaInscripcion que existe en el XML
             val fechaAlta = binding.etFechaInscripcion.text.toString().trim()
-            // ✅ CORREGIDO: Usar etUsuario que existe en el XML
             val username = binding.etUsuario.text.toString().trim()
-            // ✅ CORREGIDO: Usar etContrasena que existe en el XML
             val password = binding.etContrasena.text.toString().trim()
-            // ✅ CORREGIDO: Usar autoCompleteArea que existe en el XML
             val rol = binding.autoCompleteArea.text.toString().trim()
 
             if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() || username.isEmpty() || password.isEmpty() || rol.isEmpty()) {
@@ -82,21 +81,21 @@ class RegistroUsuarioActivity : AppCompatActivity() {
             }
         }
 
-        // ✅ CORREGIDO: Usar tvIniciaSesion que existe en el XML
+        // Usar tvIniciaSesion
         binding.tvIniciaSesion.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        // ✅ CORREGIDO: Usar btnCancelar que existe en el XML
+        // Usar btnCancelar
         binding.btnCancelar.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        // ✅ CORREGIDO: Usar iconBack que existe en el XML
+        // Usar iconBack
         binding.iconBack.setOnClickListener {
             finish()
         }
@@ -128,5 +127,20 @@ class RegistroUsuarioActivity : AppCompatActivity() {
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
+
+
+        val autoCompleteArea = findViewById<MaterialAutoCompleteTextView>(R.id.autoCompleteArea)
+
+        val opciones = listOf("Admin", "Profesor", "Médico")
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            opciones
+        )
+
+        autoCompleteArea.setAdapter(adapter)
+
     }
 }

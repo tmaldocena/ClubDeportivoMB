@@ -356,6 +356,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <!-- Area -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutArea"
