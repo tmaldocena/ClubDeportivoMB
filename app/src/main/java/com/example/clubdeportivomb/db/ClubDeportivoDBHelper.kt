@@ -433,11 +433,13 @@ class ClubDeportivoDBHelper(context: Context) :
                 db.insert("cuotas", null, cv)
             }
 
+
             /// Agregar 2 cuotas con vencimiento HOY
-            val dateFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+            val dateFormat =
+                java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
             val hoy = dateFormat.format(java.util.Date())
 
-             // Eliminamos posibles cuotas previas con la misma fecha
+            // Eliminamos posibles cuotas previas con la misma fecha
             db.delete("cuotas", "fecha_vencimiento = ?", arrayOf(hoy))
 
             // Insertamos 2 socios con vencimiento hoy
@@ -452,11 +454,14 @@ class ClubDeportivoDBHelper(context: Context) :
                 db.insert("cuotas", null, cv)
             }
 
-            Log.d("DBHelper", "✅ Se agregaron 2 cuotas con vencimiento $hoy")
+            Log.d("DBHelper", "Se agregaron 2 cuotas con vencimiento $hoy")
+        } catch (e: Exception) {
+            Log.e("DBHelper", "Error al insertar datos dummy", e)
+        }
+    }
 
 
-
-            // Obtener socios con cuota vencida
+// Obtener socios con cuota vencida
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun obtenerSociosConVencimiento(): List<VencimientosActivity.Cliente> {
@@ -480,8 +485,10 @@ class ClubDeportivoDBHelper(context: Context) :
 
         if (cursor.moveToFirst()) {
             do {
-                val nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre_completo"))
-                val fechaVencimientoBD = cursor.getString(cursor.getColumnIndexOrThrow("fecha_vencimiento"))
+                val nombre =
+                    cursor.getString(cursor.getColumnIndexOrThrow("nombre_completo"))
+                val fechaVencimientoBD =
+                    cursor.getString(cursor.getColumnIndexOrThrow("fecha_vencimiento"))
 
                 val fechaParts = fechaVencimientoBD.split("-")
                 val fechaVencimiento = if (fechaParts.size == 3) {
@@ -506,5 +513,6 @@ class ClubDeportivoDBHelper(context: Context) :
         return lista
     }
 }
+
 
 

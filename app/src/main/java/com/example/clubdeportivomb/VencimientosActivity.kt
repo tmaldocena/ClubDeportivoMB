@@ -62,8 +62,7 @@ class VencimientosActivity : AppCompatActivity() {
                     fecha.isEqual(hoy) -> hoyVencen.add(cliente)
                     fecha.isBefore(hoy) -> vencidos.add(cliente)
                 }
-            } catch (_: Exception)
-            {
+            } catch (_: Exception) {
                 false
             }
         }
@@ -89,12 +88,14 @@ class VencimientosActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 val texto = newText?.trim()?.lowercase() ?: ""
                 val filtrada = listaFinal.filter {
-                    it.nombre.lowercase().contains(texto) || it.fechaVencimiento.contains(texto) }
+                    it.nombre.lowercase().contains(texto) || it.fechaVencimiento.contains(texto)
+                }
                 actualizarTabla(filtrada)
                 return true
             }
         })
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarTabla(listaClientes: List<Cliente>) {
