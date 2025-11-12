@@ -15,7 +15,7 @@ class ClubDeportivoDBHelper(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "club_deportivo.db"
-        private const val DATABASE_VERSION = 7
+        private const val DATABASE_VERSION = 8
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -433,13 +433,17 @@ class ClubDeportivoDBHelper(context: Context) :
                 db.insert("cuotas", null, cv)
             }
 
-            //Agregar 2 cuotas con vencimiento HOY
+            /// Agregar 2 cuotas con vencimiento HOY
             val dateFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
             val hoy = dateFormat.format(java.util.Date())
 
-            for (i in 11..12) {
+             // Eliminamos posibles cuotas previas con la misma fecha
+            db.delete("cuotas", "fecha_vencimiento = ?", arrayOf(hoy))
+
+            // Insertamos 2 socios con vencimiento hoy
+            for (i in 1..2) {
                 val cv = ContentValues().apply {
-                    put("socio_id", (i - 10)) // reutilizamos los primeros socios
+                    put("socio_id", i) // usa los primeros dos socios creados
                     put("fecha_vencimiento", hoy)
                     put("fecha_pago", null as String?)
                     put("monto", 6000)
@@ -448,15 +452,11 @@ class ClubDeportivoDBHelper(context: Context) :
                 db.insert("cuotas", null, cv)
             }
 
-
-            Log.d("DBHelper", "✅ Datos dummy insertados correctamente")
-        } catch (e: Exception) {
-            Log.e("DBHelper", "❌ Error insertando datos dummy", e)
-        }
-    }
+            Log.d("DBHelper", "✅ Se agregaron 2 cuotas con vencimiento $hoy")
 
 
-    // Obtener socios con cuota vencida
+
+            // Obtener socios con cuota vencida
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun obtenerSociosConVencimiento(): List<VencimientosActivity.Cliente> {

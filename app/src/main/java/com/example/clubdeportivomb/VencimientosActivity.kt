@@ -62,14 +62,25 @@ class VencimientosActivity : AppCompatActivity() {
                     fecha.isEqual(hoy) -> hoyVencen.add(cliente)
                     fecha.isBefore(hoy) -> vencidos.add(cliente)
                 }
-            } catch (_: Exception) { }
+            } catch (_: Exception)
+            {
+                false
+            }
         }
 
-        val cincoVencidos = vencidos.sortedByDescending {
-            LocalDate.parse(it.fechaVencimiento, formatoFecha)
-        }.take(5)
 
-        val listaFinal = hoyVencen + cincoVencidos
+        val hace60Dias = hoy.minusDays(60)
+
+        val vencidosUltimos60 = vencidos.filter {
+            try {
+                val fecha = LocalDate.parse(it.fechaVencimiento, formatoFecha)
+                fecha.isAfter(hace60Dias)
+            } catch (_: Exception) {
+                false
+            }
+        }
+
+        val listaFinal = hoyVencen + vencidosUltimos60
         actualizarTabla(listaFinal)
 
         // --- Búsqueda ---
@@ -77,7 +88,8 @@ class VencimientosActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?) = false
             override fun onQueryTextChange(newText: String?): Boolean {
                 val texto = newText?.trim()?.lowercase() ?: ""
-                val filtrada = listaFinal.filter { it.nombre.lowercase().contains(texto) }
+                val filtrada = listaFinal.filter {
+                    it.nombre.lowercase().contains(texto) || it.fechaVencimiento.contains(texto) }
                 actualizarTabla(filtrada)
                 return true
             }
