@@ -132,7 +132,7 @@ class RegistroUsuarioActivity : AppCompatActivity() {
 
         val autoCompleteArea = findViewById<MaterialAutoCompleteTextView>(R.id.autoCompleteArea)
 
-        val opciones = listOf("Admin", "Profesor", "Médico")
+        val opciones = listOf("Administración", "Profesores", "Nutricionistas")
 
         val adapter = ArrayAdapter(
             this,
