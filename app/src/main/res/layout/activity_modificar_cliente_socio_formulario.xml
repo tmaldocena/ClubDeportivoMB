@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#1D1B41"
-    android:padding="32dp"
-    tools:context=".FormSocioModificarActivity">
+    android:padding="18dp"
+    tools:context=".ModificarClienteSocioFormulario">
 
     <!-- ===== ENCABEZADO ===== -->
     <RelativeLayout
@@ -19,6 +20,9 @@
             android:id="@+id/imgUsuario"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
             android:src="@drawable/person_24"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
             app:strokeColor="@color/white"
@@ -30,27 +34,30 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_toEndOf="@id/imgUsuario"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:text="Usuario"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textSize="14sp"
             android:fontFamily="@font/inria_sans" />
 
         <ImageView
             android:id="@+id/iconBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/chevron_backward_24"
             android:tint="#FFFFFF" />
     </RelativeLayout>
+
+    <!-- ===== TÍTULO CON PELOTA ===== -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="20dp">
 
         <!-- Grupo pelota + texto centrado -->
@@ -68,15 +75,15 @@
                 android:layout_height="32dp"
                 android:src="@drawable/soccer_ball" />
 
-            <!-- Texto Bienvenido/a a la derecha de la pelota -->
+            <!-- Texto a la derecha de la pelota -->
             <TextView
-                android:id="@+id/title_socio_modificar_formulario"
+                android:id="@+id/title_tipo_cliente_modificar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Aqui puedes modificar los datos del Socio seleccionado"
+                android:layout_marginStart="6dp"
+                android:text="Modifica los datos del SOCIO"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/inria_sans" />
 
@@ -84,12 +91,14 @@
 
     </RelativeLayout>
 
-    <!-- ===== FORMULARIO EN CARD ===== -->
+    <!-- ===== CARD CON FORMULARIO ===== -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         app:cardCornerRadius="12dp"
         app:cardBackgroundColor="#3E3A72"
         app:cardElevation="4dp">
@@ -195,7 +204,8 @@
                         android:id="@+id/etDni"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:enabled="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Teléfono -->
@@ -297,9 +307,10 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_marginTop="20dp"
-                    android:paddingHorizontal="8dp"
-                    android:background="#F1F3DF"
+                    android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
+                    android:background="#F1F3DF"
+                    android:backgroundTint="#F1F3DF"
                     app:cornerRadius="8dp">
 
                     <TextView
@@ -310,8 +321,7 @@
                         android:textColor="#1D1B41"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:fontFamily="@font/inria_sans"
-                        android:paddingStart="8dp" />
+                        android:fontFamily="@font/inria_sans" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchEstado"
@@ -324,26 +334,101 @@
 
                 </LinearLayout>
 
-                <!-- ===== BOTONES ===== -->
+                <!-- ===== SECCIÓN CERTIFICADO MÉDICO ===== -->
+                <!-- AÑADIR AQUÍ LOS NUEVOS ELEMENTOS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    android:background="#F1F3DF"
+                    android:backgroundTint="#F1F3DF"
+                    app:cornerRadius="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Certificado Médico"
+                        android:textColor="#1D1B41"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/inria_sans"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Información del certificado actual -->
+                    <TextView
+                        android:id="@+id/tvInfoCertificado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sin certificado cargado"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:fontFamily="@font/inria_sans"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Botones de certificado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnActualizarCertificado"
+                            style="@style/Widget.Material3.Button.ElevatedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/inria_sans"
+                            android:text="Actualizar Certificado"
+                            android:textSize="10sp"
+                            app:backgroundTint="#1D1B41"
+                            android:textColor="#FFFFFF"
+                            app:cornerRadius="8dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnVerCertificadoActual"
+                            style="@style/Widget.Material3.Button.ElevatedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            android:text="Ver Certificado"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/inria_sans"
+                            app:backgroundTint="#00BCD4"
+                            android:textColor="#FFFFFF"
+                            app:cornerRadius="8dp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- ===== BOTÓN GUARDAR ===== -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_marginTop="20dp">
-
+                    android:layout_marginTop="24dp">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnGuardar"
                         style="@style/Widget.Material3.Button.ElevatedButton"
-                        android:layout_width="211dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Guardar"
+                        android:text="Guardar Cambios"
                         android:textSize="16sp"
                         android:fontFamily="@font/inria_sans"
-                        app:backgroundTint="@color/primary"
+                        app:backgroundTint="#00BCD4"
                         android:textColor="#FFFFFF"
-                        app:cornerRadius="8dp" />
+                        app:cornerRadius="8dp"
+                        android:paddingHorizontal="32dp" />
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -351,6 +436,7 @@
 
     <!-- ===== FOOTER ===== -->
     <TextView
+        android:id="@+id/tvAyuda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -358,5 +444,5 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:fontFamily="@font/inria_sans"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="12dp" />
 </LinearLayout>

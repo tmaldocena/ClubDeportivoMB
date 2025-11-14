@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#1D1B41"
     android:padding="18dp"
-    tools:context=".TipoClienteAgregarClienteActivity">
+    tools:context=".PagosActivity">
 
     <!-- ===== ENCABEZADO ===== -->
     <RelativeLayout
@@ -21,7 +21,7 @@
             android:id="@+id/imgUsuario"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="18dp"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
             android:src="@drawable/person_24"
@@ -49,7 +49,7 @@
             android:id="@+id/iconBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="18dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/chevron_backward_24"
@@ -81,11 +81,11 @@
 
             <!-- Texto a la derecha de la pelota -->
             <TextView
-                android:id="@+id/title_tipo_cliente_agregar"
+                android:id="@+id/title_pagos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="¿Qué tipo de Cliente necesitas agregar?"
+                android:text="¿Qué necesitas hacer en Pagos?"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -95,14 +95,14 @@
 
     </RelativeLayout>
 
-    <!-- ===== CARD CON OPCIONES DE TIPO CLIENTE ===== -->
+    <!-- ===== CARD CON MENÚ PAGOS ===== -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="18dp"
         app:cardCornerRadius="12dp"
         app:cardBackgroundColor="#3E3A72"
         app:cardElevation="4dp">
@@ -114,64 +114,147 @@
             android:gravity="center"
             android:padding="16dp">
 
-            <!-- Menú con botones -->
+            <!-- Menú con botones en grilla 2x3 -->
             <GridLayout
-                android:id="@+id/tarjetaCentralMenuTipoCliente"
+                android:id="@+id/tarjetaCentralMenuPagos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="1"
-                android:rowCount="2"
+                android:columnCount="2"
+                android:rowCount="3"
                 android:alignmentMode="alignMargins"
                 android:columnOrderPreserved="false"
                 android:padding="12dp"
                 android:useDefaultMargins="true">
 
-                <!-- Botón Socio -->
+                <!-- Registrar Pago -->
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnTipoClienteSocio"
+                    android:id="@+id/btnRegistrarPago"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
                     android:layout_margin="8dp"
-                    android:text="Socio"
+                    android:text="Registrar Pago"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:lineSpacingExtra="2dp"
                     android:fontFamily="@font/inria_sans"
-                    app:icon="@drawable/person_check_24"
+                    app:icon="@drawable/attach_money_24"
                     app:iconGravity="textTop"
-                    app:iconSize="36dp"
+                    app:iconSize="32dp"
                     app:iconPadding="8dp"
                     app:cornerRadius="12dp"
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
-                <!-- Botón No Socio -->
+                <!-- Consultar Estado -->
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnTipoClienteNoSocio"
+                    android:id="@+id/btnConsultarEstado"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
                     android:layout_margin="8dp"
-                    android:text="No Socio"
+                    android:text="Consultar Estado"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:fontFamily="@font/inria_sans"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    app:icon="@drawable/person_24"
-                    app:iconSize="36dp"
+                    app:icon="@drawable/search_24"
+                    app:iconSize="32dp"
                     app:iconGravity="textTop"
                     app:iconPadding="8dp"
                     app:cornerRadius="12dp"
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
+
+                <!-- Historial de Pagos -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnHistorialPagos"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="Historial de Pagos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inria_sans"
+                    app:icon="@drawable/history_24"
+                    app:iconSize="32dp"
+                    app:iconGravity="textTop"
+                    app:iconPadding="8dp"
+                    app:cornerRadius="12dp"
+                    app:iconTint="@color/white"
+                    android:backgroundTint="#1D1B41" />
+
+                <!-- Reportes y Estadísticas -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReportes"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="Reportes"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inria_sans"
+                    app:icon="@drawable/bar_chart_24"
+                    app:iconSize="32dp"
+                    app:iconGravity="textTop"
+                    app:iconPadding="8dp"
+                    app:cornerRadius="12dp"
+                    app:iconTint="@color/white"
+                    android:backgroundTint="#1D1B41" />
+
+                <!-- Configuración de Cuotas -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnConfiguracion"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="Configurar Cuotas"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inria_sans"
+                    app:icon="@drawable/settings_24"
+                    app:iconSize="32dp"
+                    app:iconGravity="textTop"
+                    app:iconPadding="8dp"
+                    app:cornerRadius="12dp"
+                    app:iconTint="@color/white"
+                    android:backgroundTint="#1D1B41" />
+
+                <!-- Volver al Menú Principal -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVolverMenu"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="Menú Principal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inria_sans"
+                    app:icon="@drawable/home_24"
+                    app:iconGravity="textTop"
+                    app:iconPadding="8dp"
+                    app:iconSize="32dp"
+                    app:cornerRadius="12dp"
+                    app:iconTint="@color/white"
+                    android:backgroundTint="#00BCD4" />
 
             </GridLayout>
         </LinearLayout>

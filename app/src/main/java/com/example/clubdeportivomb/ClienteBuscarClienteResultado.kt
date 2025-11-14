@@ -27,6 +27,7 @@ class ClienteBuscarClienteResultado : AppCompatActivity() {
     private lateinit var repository: ClubDeportivoRepository
     private lateinit var adapter: ClienteAdapter
     private var resultadosClientes: List<Any> = emptyList()
+    private var textoBusquedaGlobal: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,18 +48,18 @@ class ClienteBuscarClienteResultado : AppCompatActivity() {
         // Obtener datos del usuario y búsqueda
         val nombreUsuario = intent.getStringExtra("NOMBRE_USUARIO") ?: "Usuario"
         val rolUsuario = intent.getStringExtra("ROL_USUARIO") ?: "Invitado"
-        val textoBusqueda = intent.getStringExtra("TEXTO_BUSQUEDA") ?: ""
+        textoBusquedaGlobal = intent.getStringExtra("TEXTO_BUSQUEDA") ?: ""
 
         // Mostrar datos del usuario en el header
         binding.tvUsuario.text = "$nombreUsuario - $rolUsuario"
 
         // Actualizar título con el texto de búsqueda
-        binding.titleResultadoBusquedaCliente.text = "Resultados para: $textoBusqueda"
+        binding.titleResultadoBusquedaCliente.text = "Resultados para: $textoBusquedaGlobal"
 
         // ANIMACIÓN DE LA PELOTA
         AppUtils.startBallAnimation(binding.imgPelota, this)
 
-        // Configurar RecyclerView
+        // Configurar RecyclerView - INICIALIZAR PRIMERO
         configurarRecyclerView()
 
         // Botón volver atrás
@@ -131,11 +132,12 @@ class ClienteBuscarClienteResultado : AppCompatActivity() {
         }
 
         // === BUSCAR EN LA BASE DE DATOS ===
-        buscarClientesEnDB(textoBusqueda)
+        buscarClientesEnDB(textoBusquedaGlobal)
     }
 
     private fun configurarRecyclerView() {
-        adapter = ClienteAdapter(resultadosClientes) { cliente ->
+        // INICIALIZAR ADAPTER con lista vacía primero
+        adapter = ClienteAdapter(emptyList()) { cliente ->
             // Actualizar texto de selección
             val nombreCliente = when (cliente) {
                 is Socio -> "${cliente.nombre} ${cliente.apellido}"
@@ -145,7 +147,7 @@ class ClienteBuscarClienteResultado : AppCompatActivity() {
             binding.tvSeleccionado.text = "Seleccionado: $nombreCliente"
         }
 
-        // Configurar RecyclerView (usando el ID correcto de tu XML)
+        // Configurar RecyclerView
         binding.rvClientes.layoutManager = LinearLayoutManager(this)
         binding.rvClientes.adapter = adapter
     }
@@ -163,6 +165,8 @@ class ClienteBuscarClienteResultado : AppCompatActivity() {
                 val cantidadResultados = resultadosClientes.size
                 binding.titleResultadoBusquedaCliente.text = "Encontrados $cantidadResultados resultados para: $textoBusqueda"
                 binding.tvSeleccionado.text = "Selecciona un cliente:"
+
+                // ✅ ACTUALIZAR EL ADAPTER CORRECTAMENTE
                 adapter.actualizarDatos(resultadosClientes)
             }
         } catch (e: Exception) {
@@ -210,13 +214,41 @@ class ClienteBuscarClienteResultado : AppCompatActivity() {
     }
 
     private fun eliminarCliente(cliente: Any) {
-        // TODO: Implementar lógica de eliminación
+        val exito = when (cliente) {
+            is Socio -> {
+                // Eliminar certificado si existe
+                if (cliente.certificado?.isNotEmpty() == true) {
+                    FileUtils.eliminarCertificado(this, cliente.certificado)
+                }
+                repository.eliminarSocio(cliente.id)
+            }
+            is NoSocio -> {
+                // Eliminar certificado si existe
+                if (cliente.certificado?.isNotEmpty() == true) {
+                    FileUtils.eliminarCertificado(this, cliente.certificado)
+                }
+                repository.eliminarNoSocio(cliente.id)
+            }
+            else -> false
+        }
+
         val nombreCliente = when (cliente) {
             is Socio -> "${cliente.nombre} ${cliente.apellido}"
             is NoSocio -> "${cliente.nombre} ${cliente.apellido}"
             else -> "Cliente"
         }
-        Toast.makeText(this, "Eliminando a $nombreCliente...", Toast.LENGTH_SHORT).show()
+
+        if (exito) {
+            Toast.makeText(this, "✅ $nombreCliente eliminado correctamente", Toast.LENGTH_LONG).show()
+
+            // ✅ RECARGAR LA LISTA CORRECTAMENTE
+            buscarClientesEnDB(textoBusquedaGlobal)
+
+            // Limpiar selección
+            binding.tvSeleccionado.text = "Selecciona un cliente:"
+        } else {
+            Toast.makeText(this, "❌ Error al eliminar $nombreCliente", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun verCertificado(cliente: Any) {

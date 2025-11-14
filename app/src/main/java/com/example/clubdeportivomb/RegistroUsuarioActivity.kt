@@ -27,6 +27,9 @@ class RegistroUsuarioActivity : AppCompatActivity() {
         val dbHelper = ClubDeportivoDBHelper(this)
         repository = ClubDeportivoRepository(dbHelper)
 
+        // ✅ CONFIGURAR EL SPINNER/COMBOBOX DE ÁREAS
+        configurarSpinnerAreas()
+
         // Configurar DatePickers
         setupDatePickers()
 
@@ -52,6 +55,13 @@ class RegistroUsuarioActivity : AppCompatActivity() {
             val confirmarPassword = binding.etConfirmarContrasena.text.toString().trim()
             if (password != confirmarPassword) {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Validar que el rol sea uno de los permitidos
+            val rolesPermitidos = resources.getStringArray(R.array.areas_array)
+            if (!rolesPermitidos.contains(rol)) {
+                Toast.makeText(this, "Seleccione un área válida", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -99,6 +109,27 @@ class RegistroUsuarioActivity : AppCompatActivity() {
         binding.iconBack.setOnClickListener {
             finish()
         }
+    }
+
+    private fun configurarSpinnerAreas() {
+        // Obtener el array de strings desde resources
+        val areasArray = resources.getStringArray(R.array.areas_array)
+
+        // Crear un ArrayAdapter para el AutoCompleteTextView
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            areasArray
+        )
+
+        // Asignar el adapter al AutoCompleteTextView
+        binding.autoCompleteArea.setAdapter(adapter)
+
+        // Opcional: Configurar el número de caracteres para mostrar sugerencias
+        binding.autoCompleteArea.threshold = 1
+
+        // Opcional: Establecer un hint
+        binding.autoCompleteArea.hint = "Seleccione un área"
     }
 
     private fun setupDatePickers() {

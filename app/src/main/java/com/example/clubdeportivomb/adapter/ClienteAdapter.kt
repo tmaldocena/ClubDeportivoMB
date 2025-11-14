@@ -1,6 +1,5 @@
 package com.example.clubdeportivomb.adapter
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,15 +63,17 @@ class ClienteAdapter(
 
         holder.cardCliente.setOnClickListener {
             clienteSeleccionado = cliente
-            notifyDataSetChanged() // Refrescar para mostrar selección
+            notifyDataSetChanged()
             onClienteClick(cliente)
         }
     }
 
     override fun getItemCount(): Int = clientes.size
 
+    // ✅ FUNCIÓN CORREGIDA - debe estar al mismo nivel
     fun actualizarDatos(nuevosClientes: List<Any>) {
         this.clientes = nuevosClientes
+        this.clienteSeleccionado = null
         notifyDataSetChanged()
     }
 

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#1D1B41"
     android:padding="18dp"
-    tools:context=".RegistrarPago">
+    tools:context=".ConfiguracionCuotasActivity">
 
     <!-- ===== ENCABEZADO ===== -->
     <RelativeLayout
@@ -16,11 +16,12 @@
         android:layout_height="wrap_content"
         android:paddingVertical="8dp">
 
+        <!-- Ícono de usuario a la izquierda -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgUsuario"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="18dp"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
             android:src="@drawable/person_24"
@@ -29,31 +30,34 @@
             app:strokeWidth="1dp"
             app:backgroundTint="#1D1B41" />
 
+        <!-- TextView de usuario centrado -->
         <TextView
             android:id="@+id/tvUsuario"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_toEndOf="@id/imgUsuario"
             android:layout_marginStart="4dp"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imgUsuario"
             android:gravity="center_vertical"
             android:text="Usuario"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            android:fontFamily="@font/inria_sans" />
+            android:fontFamily="@font/inria_sans"/>
 
+        <!-- Chevron a la derecha -->
         <ImageView
             android:id="@+id/iconBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="18dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/chevron_backward_24"
-            app:tint="@color/white"/>
+            android:tint="#FFFFFF" />
+
     </RelativeLayout>
 
-    <!-- ===== TÍTULO CON PELOTA ===== -->
+    <!-- TÍTULO -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,11 +78,11 @@
                 android:src="@drawable/soccer_ball" />
 
             <TextView
-                android:id="@+id/title_tipo_cliente_agregar"
+                android:id="@+id/title_configuracion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="Registrar el Pago"
+                android:text="Configura los tipos de cuotas y precios"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -87,7 +91,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <!-- ===== CARD PRINCIPAL ===== -->
+    <!-- CARD PRINCIPAL -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -110,60 +114,12 @@
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="20dp">
 
-                <!-- Buscar DNI -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Buscar por DNI"
-                    app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/search_24"
-                    app:endIconTint="@color/black"
-                    app:boxBackgroundColor="#F1F3DF"
-                    app:boxStrokeColor="#00BCD4"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etBuscarDni"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:fontFamily="@font/inria_sans" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Nombre y Apellido (rellenados automáticamente) -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nombre y Apellido"
-                    android:layout_marginTop="12dp"
-                    app:boxBackgroundColor="#F1F3DF"
-                    app:boxStrokeColor="#00BCD4"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etNombreApellido"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:fontFamily="@font/inria_sans"
-                        android:textColor="#000000"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <!-- Actividad -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:hint="Actividad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     app:endIconMode="dropdown_menu"
                     app:boxBackgroundColor="#F1F3DF"
                     app:boxStrokeColor="#00BCD4"
@@ -181,55 +137,7 @@
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Mes de Cuota -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:hint="Mes de Cuota"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:endIconMode="dropdown_menu"
-                    app:boxBackgroundColor="#F1F3DF"
-                    app:boxStrokeColor="#00BCD4"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/autoMesCuota"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="56dp"
-                        android:fontFamily="@font/inria_sans"
-                        android:padding="16dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Año -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:hint="Año"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:endIconMode="dropdown_menu"
-                    app:boxBackgroundColor="#F1F3DF"
-                    app:boxStrokeColor="#00BCD4"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/autoAnio"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="56dp"
-                        android:fontFamily="@font/inria_sans"
-                        android:padding="16dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Tipo de cuota -->
+                <!-- Tipo de Cuota -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:hint="Tipo de Cuota"
@@ -253,10 +161,54 @@
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Medio de pago -->
+                <!-- Precio -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:hint="Medio de Pago"
+                    android:hint="Precio ($)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:boxBackgroundColor="#F1F3DF"
+                    app:boxStrokeColor="#00BCD4"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPrecio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:fontFamily="@font/inria_sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Vencimiento -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Día de Vencimiento"
+                    android:layout_marginTop="12dp"
+                    app:boxBackgroundColor="#F1F3DF"
+                    app:boxStrokeColor="#00BCD4"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDiaVencimiento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:fontFamily="@font/inria_sans" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Estado -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:hint="Estado"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -269,7 +221,7 @@
                     app:boxCornerRadiusBottomEnd="12dp">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/autoMedioPago"
+                        android:id="@+id/autoEstado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
@@ -277,55 +229,7 @@
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Importe -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:hint="Importe ($)"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:boxBackgroundColor="#F1F3DF"
-                    app:boxStrokeColor="#00BCD4"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etImporte"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:fontFamily="@font/inria_sans" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Fecha de Pago -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Fecha de Pago"
-                    android:layout_marginTop="12dp"
-                    app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/calendar_month_24"
-                    app:endIconTint="@color/black"
-                    app:boxBackgroundColor="#F1F3DF"
-                    app:boxStrokeColor="#00BCD4"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etFechaPago"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:inputType="date"
-                        android:fontFamily="@font/inria_sans" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- ===== BOTONES ===== -->
+                <!-- BOTONES -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -333,43 +237,35 @@
                     android:gravity="center"
                     android:layout_marginTop="24dp">
 
-                    <!-- Botón Registrar Pago -->
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnRegistrarPago"
+                        android:id="@+id/btnGuardarConfiguracion"
                         style="@style/Widget.Material3.Button.ElevatedButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginEnd="10dp"
-                        android:text="Registrar Pago"
+                        android:layout_marginEnd="12dp"
+                        android:text="Guardar Configuración"
                         android:textSize="12sp"
                         android:fontFamily="@font/inria_sans"
                         app:backgroundTint="#00BCD4"
                         android:textColor="#FFFFFF"
                         app:cornerRadius="8dp"
-                        android:paddingVertical="12dp"
-                        app:iconGravity="textStart"
-                        app:iconPadding="8dp" />
+                        android:paddingVertical="12dp" />
 
-                    <!-- Botón Generar Recibo -->
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnGenerarRecibo"
+                        android:id="@+id/btnNuevaConfiguracion"
                         style="@style/Widget.Material3.Button.ElevatedButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="12dp"
-                        android:text="Generar Recibo"
+                        android:text="Nueva Configuración"
                         android:textSize="12sp"
                         android:fontFamily="@font/inria_sans"
                         app:backgroundTint="#1D1B41"
                         android:textColor="#FFFFFF"
                         app:cornerRadius="8dp"
-                        android:paddingVertical="12dp"
-                        app:icon="@drawable/receipt_24"
-                        app:iconSize="20dp"
-                        app:iconGravity="textStart"
-                        app:iconPadding="8dp" />
+                        android:paddingVertical="12dp" />
 
                 </LinearLayout>
 
@@ -377,7 +273,7 @@
         </ScrollView>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- FOOTER -->
     <TextView
         android:id="@+id/tvAyuda"
         android:layout_width="match_parent"

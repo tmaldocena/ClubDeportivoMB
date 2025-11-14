@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#1D1B41"
     android:padding="18dp"
-    tools:context=".TipoClienteAgregarClienteActivity">
+    tools:context=".ControlAccesoActivity">
 
     <!-- ===== ENCABEZADO ===== -->
     <RelativeLayout
@@ -21,7 +21,7 @@
             android:id="@+id/imgUsuario"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="18dp"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
             android:src="@drawable/person_24"
@@ -49,7 +49,7 @@
             android:id="@+id/iconBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="18dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/chevron_backward_24"
@@ -81,11 +81,11 @@
 
             <!-- Texto a la derecha de la pelota -->
             <TextView
-                android:id="@+id/title_tipo_cliente_agregar"
+                android:id="@+id/title_control_acceso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="¿Qué tipo de Cliente necesitas agregar?"
+                android:text="Control de Acceso - Escanear Carnet"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -95,14 +95,14 @@
 
     </RelativeLayout>
 
-    <!-- ===== CARD CON OPCIONES DE TIPO CLIENTE ===== -->
+    <!-- ===== CARD PRINCIPAL ===== -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="18dp"
         app:cardCornerRadius="12dp"
         app:cardBackgroundColor="#3E3A72"
         app:cardElevation="4dp">
@@ -112,68 +112,87 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="16dp">
+            android:padding="20dp">
 
-            <!-- Menú con botones -->
-            <GridLayout
-                android:id="@+id/tarjetaCentralMenuTipoCliente"
+            <!-- ÁREA DEL SCANNER -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="1"
-                android:rowCount="2"
-                android:alignmentMode="alignMargins"
-                android:columnOrderPreserved="false"
-                android:padding="12dp"
-                android:useDefaultMargins="true">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#1D1B41"
+                android:padding="16dp"
+                app:cornerRadius="12dp">
 
-                <!-- Botón Socio -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnTipoClienteSocio"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_margin="8dp"
-                    android:text="Socio"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Escaneá el código QR del carnet"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:lineSpacingExtra="2dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:fontFamily="@font/inria_sans"
-                    app:icon="@drawable/person_check_24"
-                    app:iconGravity="textTop"
-                    app:iconSize="36dp"
-                    app:iconPadding="8dp"
-                    app:cornerRadius="12dp"
-                    app:iconTint="@color/white"
-                    android:backgroundTint="#1D1B41" />
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center" />
 
-                <!-- Botón No Socio -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnTipoClienteNoSocio"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    android:layout_margin="8dp"
-                    android:text="No Socio"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"
+                <!-- Vista del scanner simplificada -->
+                <FrameLayout
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:background="#2A2A2A"
+                    android:foreground="@android:color/transparent"
+                    app:cornerRadius="8dp">
+
+                    <!-- Marco del scanner con borde usando otro CardView -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="2dp"
+                        app:cardCornerRadius="4dp" />
+
+                    <!-- Línea de escaneo animada -->
+                    <View
+                        android:id="@+id/scanLine"
+                        android:layout_width="180dp"
+                        android:layout_height="4dp"
+                        android:background="#00BCD4"
+                        android:layout_gravity="center_horizontal" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Colocá el código QR dentro del marco"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    app:icon="@drawable/person_24"
-                    app:iconSize="36dp"
-                    app:iconGravity="textTop"
-                    app:iconPadding="8dp"
-                    app:cornerRadius="12dp"
-                    app:iconTint="@color/white"
-                    android:backgroundTint="#1D1B41" />
+                    android:layout_marginTop="16dp"
+                    android:gravity="center" />
 
-            </GridLayout>
+            </LinearLayout>
+
+            <!-- BOTÓN ESCANEAR MANUALMENTE -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEscanearManualmente"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Escanear Manualmente con DNI"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/inria_sans"
+                app:icon="@drawable/search_24"
+                app:iconSize="20dp"
+                app:iconTint="@color/white"
+                app:cornerRadius="12dp"
+                android:backgroundTint="#00BCD4"
+                android:layout_marginTop="16dp" />
+
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

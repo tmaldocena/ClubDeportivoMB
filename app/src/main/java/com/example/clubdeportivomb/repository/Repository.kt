@@ -518,4 +518,193 @@ class ClubDeportivoRepository(private val dbHelper: ClubDeportivoDBHelper) {
             cursor.getInt(0) > 0
         }
     }
+    // ===== ACTUALIZACIÓN DE CLIENTES =====
+
+    // Actualizar socio
+    fun actualizarSocio(
+        socioId: Long,
+        nombre: String,
+        apellido: String,
+        fechaNacimiento: String,
+        telefono: String,
+        direccion: String,
+        email: String,
+        fechaAlta: String,
+        estado: Int,
+        certificado: String? = null
+    ): Boolean {
+        return try {
+            db.beginTransaction()
+
+            // 1. Obtener el persona_id del socio
+            val personaId = obtenerPersonaIdDeSocio(socioId)
+            if (personaId == -1L) {
+                db.endTransaction()
+                return false
+            }
+
+            // 2. Actualizar datos en tabla personas
+            val personaValues = ContentValues().apply {
+                put("nombre", nombre)
+                put("apellido", apellido)
+                put("fecha_nacimiento", fechaNacimiento)
+                put("telefono", telefono)
+                put("direccion", direccion)
+                put("email", email)
+                put("fecha_alta", fechaAlta)
+            }
+
+            val filasPersonaActualizadas = db.update(
+                "personas",
+                personaValues,
+                "id = ?",
+                arrayOf(personaId.toString())
+            )
+
+            if (filasPersonaActualizadas == 0) {
+                db.endTransaction()
+                return false
+            }
+
+            // 3. Actualizar datos en tabla socios
+            val socioValues = ContentValues().apply {
+                put("fecha_alta", fechaAlta)
+                put("estado", estado)
+                certificado?.let { put("certificado", it) }
+            }
+
+            val filasSocioActualizadas = db.update(
+                "socios",
+                socioValues,
+                "id = ?",
+                arrayOf(socioId.toString())
+            )
+
+            db.setTransactionSuccessful()
+            filasSocioActualizadas > 0
+        } catch (e: Exception) {
+            false
+        } finally {
+            db.endTransaction()
+        }
+    }
+
+    // Actualizar no socio
+    fun actualizarNoSocio(
+        noSocioId: Long,
+        nombre: String,
+        apellido: String,
+        fechaNacimiento: String,
+        telefono: String,
+        direccion: String,
+        email: String,
+        fechaAlta: String,
+        certificado: String? = null
+    ): Boolean {
+        return try {
+            db.beginTransaction()
+
+            // 1. Obtener el persona_id del no socio
+            val personaId = obtenerPersonaIdDeNoSocio(noSocioId)
+            if (personaId == -1L) {
+                db.endTransaction()
+                return false
+            }
+
+            // 2. Actualizar datos en tabla personas
+            val personaValues = ContentValues().apply {
+                put("nombre", nombre)
+                put("apellido", apellido)
+                put("fecha_nacimiento", fechaNacimiento)
+                put("telefono", telefono)
+                put("direccion", direccion)
+                put("email", email)
+                put("fecha_alta", fechaAlta)
+            }
+
+            val filasPersonaActualizadas = db.update(
+                "personas",
+                personaValues,
+                "id = ?",
+                arrayOf(personaId.toString())
+            )
+
+            if (filasPersonaActualizadas == 0) {
+                db.endTransaction()
+                return false
+            }
+
+            // 3. Actualizar datos en tabla no_socios
+            val noSocioValues = ContentValues().apply {
+                put("fecha_alta", fechaAlta)
+                certificado?.let { put("certificado", it) }
+            }
+
+            val filasNoSocioActualizadas = db.update(
+                "no_socios",
+                noSocioValues,
+                "id = ?",
+                arrayOf(noSocioId.toString())
+            )
+
+            db.setTransactionSuccessful()
+            filasNoSocioActualizadas > 0
+        } catch (e: Exception) {
+            false
+        } finally {
+            db.endTransaction()
+        }
+    }
+
+    // Función auxiliar para obtener persona_id de un socio
+    private fun obtenerPersonaIdDeSocio(socioId: Long): Long {
+        val query = "SELECT persona_id FROM socios WHERE id = ?"
+        return db.rawQuery(query, arrayOf(socioId.toString())).use { cursor ->
+            if (cursor.moveToFirst()) {
+                cursor.getLong(cursor.getColumnIndexOrThrow("persona_id"))
+            } else {
+                -1
+            }
+        }
+    }
+
+    // Función auxiliar para obtener persona_id de un no socio
+    private fun obtenerPersonaIdDeNoSocio(noSocioId: Long): Long {
+        val query = "SELECT persona_id FROM no_socios WHERE id = ?"
+        return db.rawQuery(query, arrayOf(noSocioId.toString())).use { cursor ->
+            if (cursor.moveToFirst()) {
+                cursor.getLong(cursor.getColumnIndexOrThrow("persona_id"))
+            } else {
+                -1
+            }
+        }
+    }
+
+    // Eliminar socio
+    fun eliminarSocio(socioId: Long): Boolean {
+        return try {
+            println("🗑️ Eliminando socio ID: $socioId")
+            // Esto eliminará automáticamente el registro en personas por CASCADE
+            val filasEliminadas = db.delete("socios", "id = ?", arrayOf(socioId.toString()))
+            println("✅ Filas eliminadas en socios: $filasEliminadas")
+            filasEliminadas > 0
+        } catch (e: Exception) {
+            println("❌ Error eliminando socio: ${e.message}")
+            false
+        }
+    }
+
+    // Eliminar no socio
+    fun eliminarNoSocio(noSocioId: Long): Boolean {
+        return try {
+            println("🗑️ Eliminando no socio ID: $noSocioId")
+            // Esto eliminará automáticamente el registro en personas por CASCADE
+            val filasEliminadas = db.delete("no_socios", "id = ?", arrayOf(noSocioId.toString()))
+            println("✅ Filas eliminadas en no_socios: $filasEliminadas")
+            filasEliminadas > 0
+        } catch (e: Exception) {
+            println("❌ Error eliminando no socio: ${e.message}")
+            false
+        }
+    }
 }

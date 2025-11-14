@@ -96,47 +96,47 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
-        android:layout_gravity="center"
-        android:gravity="center"
+        app:cardCornerRadius="16dp"
         app:cardBackgroundColor="#3E3A72"
-        app:cardElevation="4dp">
+        app:cardElevation="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="550dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="#3E3A72"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:background="#1D1B41"
-            android:padding="16dp"
-            android:backgroundTint="#3E3A72"
-            >
-            <!-- Menú con botones -->
-            <GridLayout
-                android:id="@+id/tarjetaCentralMenuPersonal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:columnCount="2"
-                android:useDefaultMargins="true"
-                android:padding="12dp">
+            android:padding="20dp">
 
-                <!-- Cada botón con ícono Material -->
+            <!-- Menú con botones - GridLayout mejorado -->
+            <GridLayout
+                android:id="@+id/tarjetaCentralMenuPagos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:padding="12dp"
+                android:useDefaultMargins="true">
+
+                <!-- Fila 1 -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAñadirNuevoPersonal"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:layout_margin="8dp"
-                    android:text="Añadir\nNuevo Personal"
+                    android:text="Nuevo Personal"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:lineSpacingExtra="2dp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/person_add_24"
                     app:iconGravity="textTop"
@@ -146,19 +146,17 @@
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnModificarPersonal"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_marginVertical="6dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
                     android:text="Modificar Personal"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/person_edit_24"
                     app:iconSize="32dp"
@@ -168,16 +166,18 @@
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
+                <!-- Fila 2 -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnBuscarPersonal"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:layout_margin="8dp"
                     android:text="Buscar Personal"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/person_search_24"
                     app:iconSize="32dp"
@@ -191,15 +191,13 @@
                     android:id="@+id/btnAsistencias"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="14dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
                     android:text="Asistencias"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/check_circle_24"
                     app:iconSize="32dp"
@@ -209,17 +207,18 @@
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
+                <!-- Fila 3 -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSueldos"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_margin="8dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
-                    android:layout_columnSpan="2"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
                     android:text="Sueldos"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/payments_24"
                     app:iconSize="32dp"
@@ -229,6 +228,26 @@
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMenuPrincipal"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    android:text="Menú Principal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/inria_sans"
+                    app:icon="@drawable/home_24"
+                    app:iconSize="32dp"
+                    app:iconGravity="textTop"
+                    app:iconPadding="8dp"
+                    app:cornerRadius="12dp"
+                    app:iconTint="@color/white"
+                    android:backgroundTint="#00BCD4" />
+
             </GridLayout>
         </LinearLayout>
 
@@ -236,11 +255,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#1D1B41"
-        android:padding="16dp"
-        android:backgroundTint="#1D1B41">
+        android:padding="16dp">
 
         <!-- Texto final -->
         <TextView
@@ -252,8 +270,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:fontFamily="@font/inria_sans"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </LinearLayout>

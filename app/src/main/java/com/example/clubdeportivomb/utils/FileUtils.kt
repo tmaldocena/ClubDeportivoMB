@@ -64,4 +64,40 @@ object FileUtils {
             file.name.startsWith("certificado_$dni")
         }?.map { it.name } ?: emptyList()
     }
+
+    // ✅ AÑADIR ESTA FUNCIÓN PARA ELIMINAR CERTIFICADOS
+    fun eliminarCertificado(context: Context, nombreArchivo: String): Boolean {
+        return try {
+            val file = File(getCertificadosDirectory(context), nombreArchivo)
+            if (file.exists()) {
+                val eliminado = file.delete()
+                if (eliminado) {
+                    Log.d("FileUtils", "Certificado eliminado: $nombreArchivo")
+                } else {
+                    Log.e("FileUtils", "No se pudo eliminar el certificado: $nombreArchivo")
+                }
+                eliminado
+            } else {
+                Log.w("FileUtils", "Certificado no encontrado para eliminar: $nombreArchivo")
+                false
+            }
+        } catch (e: Exception) {
+            Log.e("FileUtils", "Error al eliminar certificado", e)
+            false
+        }
+    }
+
+    // ✅ FUNCIÓN ADICIONAL: Limpiar certificados antiguos de un socio
+    fun limpiarCertificadosAntiguos(context: Context, dni: String, mantenerArchivo: String? = null) {
+        try {
+            val certificados = listarCertificadosSocio(context, dni)
+            certificados.forEach { certificado ->
+                if (certificado != mantenerArchivo) {
+                    eliminarCertificado(context, certificado)
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("FileUtils", "Error al limpiar certificados antiguos", e)
+        }
+    }
 }

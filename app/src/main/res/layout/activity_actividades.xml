@@ -95,47 +95,49 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="18dp"
+        app:cardCornerRadius="12dp"
         app:cardBackgroundColor="#3E3A72"
         app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="#3E3A72"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:background="#1D1B41"
-            android:padding="16dp"
-            android:backgroundTint="#3E3A72"
-            >
-            <!-- Menú con botones -->
+            android:padding="20dp">
+
+            <!-- Menú con botones - Mismo estilo que Personal -->
             <GridLayout
                 android:id="@+id/tarjetaCentralMenuActividades"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:columnCount="2"
-                android:useDefaultMargins="true"
-                android:padding="12dp">
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:padding="12dp"
+                android:useDefaultMargins="true">
 
-                <!-- Cada botón con ícono Material -->
+                <!-- Fila 1 -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAñadirNuevaActividad"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:layout_margin="8dp"
-                    android:text="Añadir\nNueva Actividad"
+                    android:text="Nueva Actividad"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:lineSpacingExtra="2dp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/fitness_center_24"
                     app:iconGravity="textTop"
@@ -145,19 +147,17 @@
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnModificarActividad"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_marginVertical="6dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
                     android:text="Modificar Actividad"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/edit_square_24"
                     app:iconSize="32dp"
@@ -167,16 +167,18 @@
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
+                <!-- Fila 2 -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnBuscarActividad"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
                     android:layout_margin="8dp"
                     android:text="Buscar Actividad"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/search_24"
                     app:iconSize="32dp"
@@ -190,12 +192,13 @@
                     android:id="@+id/btnAsignarActividad"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_margin="8dp"
+                    android:layout_height="120dp"
                     android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
                     android:text="Asignar Actividad"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inria_sans"
                     app:icon="@drawable/assignment_add"
                     app:iconSize="32dp"
@@ -205,6 +208,28 @@
                     app:iconTint="@color/white"
                     android:backgroundTint="#1D1B41" />
 
+                <!-- Fila 3 - Botón Menú Principal que ocupa 2 columnas -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMenuPrincipal"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="2"
+                    android:layout_rowWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_margin="8dp"
+                    android:text="Menú Principal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/inria_sans"
+                    app:icon="@drawable/home_24"
+                    app:iconSize="32dp"
+                    app:iconGravity="textTop"
+                    app:iconPadding="8dp"
+                    app:cornerRadius="12dp"
+                    app:iconTint="@color/white"
+                    android:backgroundTint="#00BCD4" />
+
             </GridLayout>
         </LinearLayout>
 
@@ -212,11 +237,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#1D1B41"
-        android:padding="16dp"
-        android:backgroundTint="#1D1B41">
+        android:padding="16dp">
 
         <!-- Texto final -->
         <TextView
@@ -228,8 +252,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:fontFamily="@font/inria_sans"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </LinearLayout>

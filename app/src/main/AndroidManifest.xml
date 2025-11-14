@@ -18,7 +18,7 @@
             android:name=".RegistroClientes"
             android:exported="false" />
         <activity
-            android:name=".ControlAcceso"
+            android:name=".ControlAccesoActivity"
             android:exported="false" />
         <activity
             android:name=".ObtenerDatosPersonalNutricionista"
@@ -67,6 +67,29 @@
             android:exported="false" />
         <activity
             android:name=".RegistroClienteNoSocio"
+            android:exported="false" />
+        <activity
+            android:name=".PagosActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RegistrarPagoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ConsultarEstadoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".HistorialPagosActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ReportesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ConfiguracionCuotasActivity"
             android:exported="false" />
         <activity
             android:name=".RegistroClienteSocio"
