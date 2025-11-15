@@ -134,7 +134,7 @@
                         android:fontFamily="@font/inria_sans" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Nombre y Apellido (rellenados automáticamente) -->
+                <!-- Nombre y Apellido  -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -152,7 +152,9 @@
                         android:id="@+id/etNombreApellido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="false"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:cursorVisible="false"
                         android:fontFamily="@font/inria_sans"
                         android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -181,10 +183,10 @@
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Mes de Cuota -->
+                <!-- Horario-->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:hint="Mes de Cuota"
+                    android:hint="Horario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -197,7 +199,7 @@
                     app:boxCornerRadiusBottomEnd="12dp">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/autoMesCuota"
+                        android:id="@+id/autoHorario"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
@@ -205,29 +207,7 @@
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Año -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:hint="Año"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:endIconMode="dropdown_menu"
-                    app:boxBackgroundColor="#F1F3DF"
-                    app:boxStrokeColor="#00BCD4"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
 
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/autoAnio"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="56dp"
-                        android:fontFamily="@font/inria_sans"
-                        android:padding="16dp" />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Tipo de cuota -->
                 <com.google.android.material.textfield.TextInputLayout

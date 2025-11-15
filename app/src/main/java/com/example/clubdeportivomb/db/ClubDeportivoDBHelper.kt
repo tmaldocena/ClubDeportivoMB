@@ -15,7 +15,7 @@ class ClubDeportivoDBHelper(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "club_deportivo.db"
-        private const val DATABASE_VERSION = 8
+        private const val DATABASE_VERSION = 9
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -219,18 +219,19 @@ class ClubDeportivoDBHelper(context: Context) :
 
         db.execSQL(
             """
-            CREATE TABLE pagos (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                dni_cliente TEXT,
-                tipo_pago TEXT,
-                importe REAL,
-                motivo TEXT,
-                medio_pago TEXT,
-                cuotas TEXT,
-                fecha_pago TEXT
-            )
+             CREATE TABLE pagos (
+                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 dni_cliente TEXT NOT NULL,
+                 actividad TEXT NOT NULL,
+                 horario TEXT NOT NULL,
+                 tipo_cuota TEXT NOT NULL,
+                 medio_pago TEXT NOT NULL,
+                 importe REAL NOT NULL,
+                 fecha_pago TEXT NOT NULL
+             );
         """
         )
+
 
         //datos dummy
         insertarDatosDummy(db)
@@ -403,15 +404,16 @@ class ClubDeportivoDBHelper(context: Context) :
             for (i in 0 until 10) {
                 val cv = ContentValues().apply {
                     put("dni_cliente", "40000${100 + i}")
-                    put("tipo_pago", "Cuota")
-                    put("importe", 5000 + i * 100)
-                    put("motivo", "Pago cuota mensual")
-                    put("medio_pago", if (i % 2 == 0) "Efectivo" else "Tarjeta")
-                    put("cuotas", "1")
+                    put("actividad", "Fútbol")
+                    put("horario", "18:00")
+                    put("tipo_cuota", "Mensual")
+                    put("medio_pago", if (i % 2 == 0) "Efectivo" else "Transferencia")
+                    put("importe", 20000 + (i * 100))
                     put("fecha_pago", "2025-03-${10 + i}")
                 }
                 db.insert("pagos", null, cv)
             }
+
 
             // CUOTAS (5 vencidas y 5 pagas)
             for (i in 0 until 10) {
@@ -512,6 +514,64 @@ class ClubDeportivoDBHelper(context: Context) :
         db.close()
         return lista
     }
+
+    //buscar por dni
+    fun buscarPersonaPorDNI(dni: String): Persona? {
+        val db = readableDatabase
+
+        val cursor = db.rawQuery(
+            """
+        SELECT id, nombre, apellido 
+        FROM personas
+        WHERE dni = ?
+        """,
+            arrayOf(dni)
+        )
+
+        val persona = if (cursor.moveToFirst()) {
+            Persona(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                apellido = cursor.getString(cursor.getColumnIndexOrThrow("apellido"))
+            )
+        } else null
+
+        cursor.close()
+        return persona
+    }
+
+    data class Persona(
+        val id: Int,
+        val nombre: String,
+        val apellido: String
+    )
+
+    //Registrar un pago
+    fun registrarPago(
+        dni: String,
+        actividad: String,
+        horario: String,
+        tipoCuota: String,
+        medioPago: String,
+        importe: Double,
+        fechaPago: String
+    ): Long {
+
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("dni_cliente", dni)
+            put("actividad", actividad)
+            put("horario", horario)
+            put("tipo_cuota", tipoCuota)
+            put("medio_pago", medioPago)
+            put("importe", importe)
+            put("fecha_pago", fechaPago)
+        }
+
+        return db.insert("pagos", null, values)
+    }
+
+
 }
 
 

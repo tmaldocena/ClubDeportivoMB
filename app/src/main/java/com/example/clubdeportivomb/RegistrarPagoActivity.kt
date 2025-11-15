@@ -8,21 +8,26 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clubdeportivomb.databinding.ActivityRegistrarPagoBinding
+import com.example.clubdeportivomb.db.ClubDeportivoDBHelper
 import com.example.clubdeportivomb.utils.AppUtils
 import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+
+
 class RegistrarPagoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrarPagoBinding
+    private lateinit var db: ClubDeportivoDBHelper
     private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrarPagoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        db = ClubDeportivoDBHelper(this)
 
         // Obtener datos del usuario
         val nombreUsuario = intent.getStringExtra("NOMBRE_USUARIO") ?: "Usuario"
@@ -39,7 +44,7 @@ class RegistrarPagoActivity : AppCompatActivity() {
 
         // Listeners
         binding.etBuscarDni.setOnClickListener {
-            buscarSocioPorDNI()
+            buscarPersonaPorDNI()
         }
 
         binding.etFechaPago.setOnClickListener {
@@ -69,19 +74,14 @@ class RegistrarPagoActivity : AppCompatActivity() {
         val actividadAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, actividades)
         binding.autoActividad.setAdapter(actividadAdapter)
 
-        // Meses de cuota
-        val meses = arrayOf("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
-        val mesAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, meses)
-        binding.autoMesCuota.setAdapter(mesAdapter)
+        // Horarios
+        val horas = arrayOf("18:00", "19:00" , "20:00",  "21:00" )
+        val horaAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, horas)
+        binding.autoHorario.setAdapter(horaAdapter)
 
-        // Años
-        val anios = arrayOf("2024", "2025", "2026", "2027", "2028")
-        val anioAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, anios)
-        binding.autoAnio.setAdapter(anioAdapter)
 
         // Tipos de cuota
-        val tiposCuota = arrayOf("Mensual", "Trimestral", "Anual", "Promocional")
+        val tiposCuota = arrayOf("Diaria", "Mensual", "Promocional")
         val tipoCuotaAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, tiposCuota)
         binding.autoTipoCuota.setAdapter(tipoCuotaAdapter)
 
@@ -91,29 +91,28 @@ class RegistrarPagoActivity : AppCompatActivity() {
         binding.autoMedioPago.setAdapter(medioPagoAdapter)
     }
 
-    private fun buscarSocioPorDNI() {
+    private fun buscarPersonaPorDNI() {
         val dni = binding.etBuscarDni.text.toString().trim()
+
         if (dni.isEmpty()) {
             Toast.makeText(this, "Ingrese un DNI para buscar", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Simular búsqueda de socio (aquí iría tu lógica real)
-        when (dni) {
-            "12345678" -> {
-                binding.etNombreApellido.setText("Juan Pérez")
-                Toast.makeText(this, "Socio encontrado: Juan Pérez", Toast.LENGTH_SHORT).show()
-            }
-            "87654321" -> {
-                binding.etNombreApellido.setText("María García")
-                Toast.makeText(this, "Socio encontrado: María García", Toast.LENGTH_SHORT).show()
-            }
-            else -> {
-                binding.etNombreApellido.setText("")
-                Toast.makeText(this, "Socio no encontrado", Toast.LENGTH_SHORT).show()
-            }
+        val persona = db.buscarPersonaPorDNI(dni)
+
+        if (persona != null) {
+            val nombreCompleto = "${persona.nombre} ${persona.apellido}"
+            binding.etNombreApellido.setText(nombreCompleto)
+
+            Toast.makeText(this, "Cliente encontrado: $nombreCompleto", Toast.LENGTH_SHORT).show()
+        } else {
+            binding.etNombreApellido.setText("")
+            Toast.makeText(this, "Cliente no encontrado", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
     private fun showDatePicker() {
         val datePicker = DatePickerDialog(
@@ -137,13 +136,37 @@ class RegistrarPagoActivity : AppCompatActivity() {
     }
 
     private fun registrarPago() {
-        if (validarFormulario()) {
-            Toast.makeText(this, "Pago registrado exitosamente", Toast.LENGTH_SHORT).show()
-            // Aquí iría la lógica para guardar en base de datos
+
+        if (!validarFormulario()) return
+
+        val dni = binding.etBuscarDni.text.toString()
+        val actividad = binding.autoActividad.text.toString()
+        val horario = binding.autoHorario.text.toString()
+        val tipoCuota = binding.autoTipoCuota.text.toString()
+        val medioPago = binding.autoMedioPago.text.toString()
+        val importe = binding.etImporte.text.toString().toDouble()
+        val fecha = binding.etFechaPago.text.toString()
+
+        val id = db.registrarPago(
+            dni = dni,
+            actividad = actividad,
+            horario = horario,
+            tipoCuota = tipoCuota,
+            medioPago = medioPago,
+            importe = importe,
+            fechaPago = fecha
+        )
+
+        if (id > 0) {
+            Toast.makeText(this, "Pago registrado (Recibo Nº $id)", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "Error al registrar pago", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun generarRecibo() {
+
+
+private fun generarRecibo() {
         if (validarFormulario()) {
             Toast.makeText(this, "Recibo generado exitosamente", Toast.LENGTH_SHORT).show()
             // Aquí iría la lógica para generar el recibo/PDF
