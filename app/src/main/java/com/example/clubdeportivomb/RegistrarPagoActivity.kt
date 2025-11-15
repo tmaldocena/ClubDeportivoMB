@@ -2,8 +2,10 @@ package com.example.clubdeportivomb
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -43,9 +45,32 @@ class RegistrarPagoActivity : AppCompatActivity() {
         setupDropdowns()
 
         // Listeners
-        binding.etBuscarDni.setOnClickListener {
-            buscarPersonaPorDNI()
-        }
+//        binding.etBuscarDni.setOnClickListener {
+//            buscarPersonaPorDNI()
+//
+//        }
+
+        binding.etBuscarDni.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No necesitamos hacer nada aquí
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Se llama cada vez que el texto cambia
+                val dni = s.toString().trim()
+                if (dni.length >= 7) { // Opcional: busca solo cuando el DNI tiene una longitud razonable
+                    buscarPersonaPorDNI(dni)
+                } else {
+                    // Si el DNI es muy corto, limpia el campo de nombre
+                    binding.etNombreApellido.setText("")
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                // No necesitamos hacer nada aquí
+            }
+        })
+        
 
         binding.etFechaPago.setOnClickListener {
             showDatePicker()
@@ -91,8 +116,7 @@ class RegistrarPagoActivity : AppCompatActivity() {
         binding.autoMedioPago.setAdapter(medioPagoAdapter)
     }
 
-    private fun buscarPersonaPorDNI() {
-        val dni = binding.etBuscarDni.text.toString().trim()
+    private fun buscarPersonaPorDNI(dni: String) {
 
         if (dni.isEmpty()) {
             Toast.makeText(this, "Ingrese un DNI para buscar", Toast.LENGTH_SHORT).show()

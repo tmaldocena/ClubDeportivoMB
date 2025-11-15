@@ -31,7 +31,7 @@ class ClienteActivity : AppCompatActivity() {
 
         // Listeners de botones
         binding.btnAgregarNuevoCliente.setOnClickListener {
-            Toast.makeText(this, "Nuevo Cliente", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Nuevo Cliente", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, TipoClienteAgregarClienteActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)
@@ -40,7 +40,7 @@ class ClienteActivity : AppCompatActivity() {
 
         // BOTÓN DE PAGOS (NUEVO BOTÓN)
         binding.btnPagos.setOnClickListener {
-            Toast.makeText(this, "Pagos", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Pagos", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, PagosActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)
@@ -48,7 +48,7 @@ class ClienteActivity : AppCompatActivity() {
         }
 
         binding.btnBuscarCliente.setOnClickListener {
-            Toast.makeText(this, "Buscar Cliente", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Buscar Cliente", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, ClienteBuscarCliente::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)
@@ -56,7 +56,7 @@ class ClienteActivity : AppCompatActivity() {
         }
 
         binding.btnControlAcceso.setOnClickListener {
-            Toast.makeText(this, "Control de Acceso", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Control de Acceso", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, ControlAccesoActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)

@@ -4,7 +4,9 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -73,6 +75,31 @@ class RegistroClienteSocio : AppCompatActivity() {
 
         // === DatePickers ===
         val calendar = Calendar.getInstance()
+
+        binding.etDni.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val dni = s.toString().trim()
+                if (dni.length >= 7) {
+                    if (repository.existeSocioConDNI(dni)) {
+                        // El DNI ya existe: muestra error Y DESACTIVA EL BOTÓN
+                        binding.etDni.error = "Este DNI ya está registrado"
+                        binding.btnGuardar.isEnabled = false // <--- LÍNEA AÑADIDA
+                    } else {
+                        // El DNI está disponible: quita el error Y ACTIVA EL BOTÓN
+                        binding.etDni.error = null
+                        binding.btnGuardar.isEnabled = true // <--- LÍNEA AÑADIDA
+                    }
+                } else {
+                    // Si el DNI es muy corto, no muestres error y asegúrate de que el botón esté activo
+                    binding.etDni.error = null
+                    binding.btnGuardar.isEnabled = true // <--- LÍNEA AÑADIDA
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         binding.etFechaNacimiento.setOnClickListener {
             DatePickerDialog(

@@ -31,7 +31,7 @@ class PagosActivity : AppCompatActivity() {
 
         // Listeners de botones
         findViewById<MaterialButton>(R.id.btnRegistrarPago).setOnClickListener {
-            Toast.makeText(this, "Registrar Pago", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Registrar Pago", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, RegistrarPagoActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)
@@ -39,7 +39,7 @@ class PagosActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialButton>(R.id.btnConsultarEstado).setOnClickListener {
-            Toast.makeText(this, "Consultar Estado", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Consultar Estado", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, ConsultarEstadoActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)
@@ -47,7 +47,7 @@ class PagosActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialButton>(R.id.btnHistorialPagos).setOnClickListener {
-            Toast.makeText(this, "Historial de Pagos", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Historial de Pagos", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, HistorialPagosActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)
@@ -55,15 +55,15 @@ class PagosActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialButton>(R.id.btnReportes).setOnClickListener {
-            Toast.makeText(this, "Reportes", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ReportesActivity::class.java)
+            //Toast.makeText(this, "Reportes", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, VencimientosActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)
             startActivity(intent)
         }
 
         findViewById<MaterialButton>(R.id.btnConfiguracion).setOnClickListener {
-            Toast.makeText(this, "Configuración de Cuotas", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Configuración de Cuotas", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, ConfiguracionCuotasActivity::class.java)
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
             intent.putExtra("ROL_USUARIO", rolUsuario)

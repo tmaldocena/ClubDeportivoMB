@@ -125,7 +125,8 @@
                         android:id="@+id/etNombre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Apellido -->
@@ -147,7 +148,8 @@
                         android:id="@+id/etApellido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Fecha de Nacimiento -->
@@ -173,7 +175,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- DNI -->
@@ -195,7 +198,8 @@
                         android:id="@+id/etDni"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Teléfono -->
@@ -217,7 +221,8 @@
                         android:id="@+id/etTelefono"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Email -->
@@ -239,7 +244,8 @@
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Dirección -->
@@ -261,7 +267,8 @@
                         android:id="@+id/etDireccion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress" />
+                        android:inputType="textPostalAddress"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Fecha de Inscripción -->
@@ -287,7 +294,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Estado Activo -->

@@ -31,7 +31,7 @@ class TipoClienteAgregarClienteActivity : AppCompatActivity() {
 
         // Listeners de botones USANDO BINDING
         binding.btnTipoClienteSocio.setOnClickListener {
-            Toast.makeText(this, "Botón Socio presionado", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Botón Socio presionado", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, RegistroClienteSocio::class.java)
             // PASAR LOS DATOS DEL USUARIO
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)
@@ -40,7 +40,7 @@ class TipoClienteAgregarClienteActivity : AppCompatActivity() {
         }
 
         binding.btnTipoClienteNoSocio.setOnClickListener {
-            Toast.makeText(this, "Botón No Socio presionado", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Botón No Socio presionado", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, RegistroClienteNoSocio::class.java)
             // PASAR LOS DATOS DEL USUARIO
             intent.putExtra("NOMBRE_USUARIO", nombreUsuario)

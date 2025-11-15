@@ -131,6 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        android:textColor="#000000"
                         android:fontFamily="@font/inria_sans" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,6 +181,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
                         android:fontFamily="@font/inria_sans"
+                        android:textColor="#000000"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -204,6 +206,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
                         android:fontFamily="@font/inria_sans"
+                        android:textColor="#000000"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -230,6 +233,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
                         android:fontFamily="@font/inria_sans"
+                        android:textColor="#000000"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,6 +258,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
                         android:fontFamily="@font/inria_sans"
+                        android:textColor="#000000"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -276,7 +281,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:fontFamily="@font/inria_sans" />
+                        android:fontFamily="@font/inria_sans"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Fecha de Pago -->
@@ -302,7 +308,8 @@
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:inputType="date"
-                        android:fontFamily="@font/inria_sans" />
+                        android:fontFamily="@font/inria_sans"
+                        android:textColor="#000000"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- ===== BOTONES ===== -->
