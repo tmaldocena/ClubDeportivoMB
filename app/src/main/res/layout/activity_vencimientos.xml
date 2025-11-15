@@ -8,9 +8,9 @@
     android:orientation="vertical"
     android:background="#1D1B41"
     android:padding="18dp"
-    tools:context=".VencimientosActivity"> <!-- Cambié el context para que coincida -->
+    tools:context=".VencimientosActivity">
 
-    <!-- Encabezado con ícono de usuario y botón de volver (no lo he modificado) -->
+    <!-- Encabezado  -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
         app:cardCornerRadius="8dp"
         app:cardBackgroundColor="#3E3A72">
 
-        <!-- ScrollView es crucial si la lista es larga -->
+        <!-- ScrollView -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -94,12 +94,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:stretchColumns="0"> <!-- Estira la primera columna (Nombre) -->
+                android:stretchColumns="0">
 
-                <!-- 1. Fila de Encabezados -->
+                <!-- Encabezados -->
                 <TableRow
                     android:id="@+id/filaEncabezado"
-                    android:background="#504C8A"> <!-- Color para resaltar el header -->
+                    android:background="#504C8A">
 
                     <TextView
                         android:text="Nombre"
@@ -121,14 +121,14 @@
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:padding="8dp"
-                        android:gravity="end"/> <!-- Alineado a la derecha -->
+                        android:gravity="end"/>
                 </TableRow>
 
-                <!-- Las filas con los datos se agregarán aquí desde el código Kotlin -->
+
 
             </TableLayout>
         </ScrollView>
     </com.google.android.material.card.MaterialCardView>
-    <!-- === FIN DE LA TABLA DE VENCIMIENTOS === -->
+
 
 </LinearLayout>
